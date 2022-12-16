@@ -391,8 +391,8 @@ function isBracketsBalanced(str) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 
@@ -408,8 +408,30 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  const firstPath = [...pathes[0].split('/').slice(0, -1)];
+  const commonPathes = [];
+  const newPathes = pathes
+    .slice(1)
+    .map((e) => e.split('/'));
+
+  newPathes.forEach((subArr) => {
+    subArr.forEach((path) => {
+      if (firstPath.includes(path)) {
+        commonPathes.push(path);
+      }
+    });
+  });
+
+  const currectPath = pathes.every((path) => path.includes(`${commonPathes.join('/')}`));
+
+  if (!currectPath) {
+    return '';
+  }
+
+  const result = `${commonPathes.join('/')}`;
+
+  return result === '/' ? '/' : `${result}/`;
 }
 
 
